@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Connexion{% endblock title %}
+
+{% block content %}
+<h2>Connectez-vous</h2>
+<form method="post">{% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success ml-2" type="submit">Se connecter</button>
+</form>
+{% endblock content %}
