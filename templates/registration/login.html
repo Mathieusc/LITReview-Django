@@ -4,9 +4,23 @@
 {% block title %}Connexion{% endblock title %}
 
 {% block content %}
-<h2>Connectez-vous</h2>
-<form method="post">{% csrf_token %}
-    {{ form|crispy }}
-    <button class="btn btn-success ml-2" type="submit">Se connecter</button>
-</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <article class="signup">
+                <h2>Inscivez-vous maintenant</h2>
+                <a href="{% url 'signup' %}" class="btn btn-primary">S'inscrire</a>
+            </article>
+        </div>
+
+        <div class="col-lg-6">
+            <h2>Connectez-vous</h2>
+            <form method="post">{% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-success ml-2" type="submit">Se connecter</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

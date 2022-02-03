@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <article class="media content-section ">
+            <div class="media-body list-group-item mb-5">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ object.user|title }} a publié une critique</a>
+                    <small class="text-muted d-flex justify-content-end">{{ object.time_created }}</small>
+                </div>
+                <h2 class="article-title">{{ object.headline}} - {{ object.rating }} <span
+                        class="star-rating">&#11088;</span></h2>
+                <p class="article-content">{{ object.body }}</p>
+            </div>
+        </article>
+    </div>
+
+    {% endblock content %}
