@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
@@ -12,6 +13,9 @@ class Ticket(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+    def get_absolute_url(self):
+        return reverse("ticket-detail", kwargs={"pk": self.pk})
 
 
 class Review(models.Model):
@@ -27,3 +31,6 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.headline)
+
+    def get_absolute_url(self):
+        return reverse("review-detail", kwargs={"pk": self.pk})

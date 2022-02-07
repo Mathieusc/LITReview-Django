@@ -9,6 +9,11 @@
                 <div class="article-metadata">
                     <a class="mr-2" href="#">{{ object.user|title }} a demandé une critique</a>
                     <small class="text-muted d-flex justify-content-end">{{ object.time_created }}</small>
+                    {% if object.user == user %}
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                        href="{% url 'review-update' object.id %}">Modifier</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'review-delete' object.id %}">Supprimer</a>
+                    {% endif %}
                 </div>
                 <h2><a class="article-title" href="#">{{ object.title }}</a></h2>
                 <p class="article-content">{{ object.description }}</p>

@@ -4,15 +4,10 @@
 
 
 <div class="row">
-    <div class="mt-5 col-lg-12">
-
-        <a href="{% url 'ticket-create' %}" class="btn btn-info px-4 mb-5 ">Demander une critique</a>
-        <a href="{% url 'review-create' %}" class="btn btn-info px-5 mb-5 float-right">Créer une critique</a>
-
-    </div>
 
     <!-- Reviews -->
     {% for post in reviews %}
+    {% if post.user == user %}
     <div class="col-md-12">
         <article class="media content-section ">
             <div class="media-body list-group-item mb-5">
@@ -20,6 +15,8 @@
                     <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
                         critique</a>
                     <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'review-update' post.id %}">Modifier</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'review-delete' post.id %}">Supprimer</a>
                 </div>
                 <h2 class="article-title">{{ post.headline}} - {{ post.rating }} <span
                         class="star-rating">&#11088;</span></h2>
@@ -27,10 +24,12 @@
             </div>
         </article>
     </div>
+    {% endif %}
     {% endfor %}
 
     <!-- Tickets -->
     {% for post in tickets %}
+    {% if post.user == user %}
     <div class="col-md-12">
         <article class="media content-section ">
             <div class="media-body list-group-item mb-5">
@@ -38,6 +37,8 @@
                     <a class="mr-2" href="{% url 'ticket-detail' post.id %}">{{ post.user|title }} a demandé une
                         critique</a>
                     <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'ticket-update' post.id %}">Modifier</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'ticket-delete' post.id %}">Supprimer</a>
                 </div>
                 <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.description }}</p>
@@ -45,7 +46,7 @@
             </div>
         </article>
     </div>
+    {% endif %}
     {% endfor %}
-
 
     {% endblock content %}
