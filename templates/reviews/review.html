@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Flux{% endblock title %}
+{% block content %}
+
+<!-- Reviews -->
+
+<div class="col-md-12">
+    <article class="media content-section ">
+        <div class="media-body list-group-item mb-5">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
+                    critique</a>
+                <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
+            </div>
+
+            <h2 class="article-title">{{ post.headline}} - <span class="star-rating">&#11088;</span>
+            </h2>
+            {% for star in rating %}
+            {{post.star}}
+            {% endfor %}
+            <p class="article-content">{{ post.body }}</p>
+        </div>
+    </article>
+</div>
+
+{% endblock content %}

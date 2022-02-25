@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Flux{% endblock title %}
+{% block content %}
+
+
+<div class="col-md-12">
+    <article class="media content-section ">
+        <div class="media-body list-group-item mb-5">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'ticket-detail' post.id %}">{{ post.user|title }} a demandé une
+                    critique</a>
+                <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.description }}</p>
+            <img src="static/ikigai.jpg">
+        </div>
+    </article>
+</div>
+
+{% endblock content %}

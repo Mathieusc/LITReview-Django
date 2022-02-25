@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Abonnements{% endblock title %}
+{% block content %}
+
+<!-- Follow users -->
+<form method="post" class="form container">
+    {% csrf_token %}
+    <div class="row">
+        <h2> Suivre d'autre utilisateurs</h2>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="follow_user" placeholder="Nom d'utilisateur"
+                style="text-align: center" aria-describedby="basic-addon2"">
+            <div class=" input-group-append">
+            <button class="btn btn-outline-secondary" value="Submit" type="submit">Suivre</button>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <h5 class="text-light bg-danger small fw-bold fst-italic">{{ message }}</h5>
+        {% elif message.tags == 'info' %}
+        <h5 class="text-light bg-secondary small fst-italic">{{ message }}</h5>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+    <!-- Subscribe to / Unsubscribe -->
+
+    <h2>Abonnements</h2>
+    <div class="input-group mb-3">
+        {% for user_followed in followed_by %}
+
+        <h5><a href="#" class="profile-link">{{ user.followed_user }}</a></h5>
+        <div class="input-group-append">
+            <div class="col-10 bg-light text-center">
+                <p>@{{ user_followed.followed_user }}</p>
+            </div>
+            <div class="col-md-6">
+                <a href="{% url 'unsubscribe' followed_by_id=user_followed.followed_user_id following_id=user_followed.user_id  %}"
+                    onclick="return confirm(
+                    'Etes-vous sûr de supprimer cet abonnement ?');">
+                    <button class="btn btn-outline-secondary" value="delete" type="button">Désabonner</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+    <!-- Subscribers -->
+    <h2>Abonnés</h2>
+    {% for followers in following %}
+    <div class="col-12 bg-light">
+        <p>{{ followers.user }}</p>
+    </div>
+    {% endfor %}
+
+</form>
+{% endblock content %}
