@@ -49,7 +49,6 @@ def home_page_view(request):
 
     context = {
         "posts": posts,
-        # "rating": range(Review.rating)
     }
 
     return render(request, "home.html", context)

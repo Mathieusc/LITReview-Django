@@ -13,11 +13,15 @@
                 <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
             </div>
 
-            <h2 class="article-title">{{ post.headline}} - <span class="star-rating">&#11088;</span>
+            <h2 class="article-title">{{ post.headline}} {% if post.rating == 1 %}<span
+                    class="star-rating">&#11088;</span>
+                {% elif post.rating == 2 %}<span class="star-rating">&#11088;&#11088;</span>
+                {% elif post.rating == 3 %}<span class="star-rating">&#11088;&#11088;&#11088;</span>
+                {% elif post.rating == 4 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;</span>
+                {% elif post.rating == 5 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;&#11088;</span>
+                {% endif %}
             </h2>
-            {% for star in rating %}
-            {{post.star}}
-            {% endfor %}
+
             <p class="article-content">{{ post.body }}</p>
         </div>
     </article>
