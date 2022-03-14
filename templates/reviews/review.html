@@ -1,8 +1,13 @@
-{% extends "base.html" %}
+{% extends "tickets/ticket.html" %}
 {% block title %}Flux{% endblock title %}
 {% block content %}
 
 <!-- Reviews -->
+{% if post.ticket %}
+Rajouter ça mais en dessous du ticket en question, how tho ?
+{% else %}
+Sinon laisser ça solo
+{% endif %}
 
 <div class="col-md-12">
     <article class="media content-section ">

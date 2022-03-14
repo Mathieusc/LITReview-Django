@@ -22,19 +22,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from accounts.models import CustomUser, UserFollows
 from pages.models import Ticket, Review
-
-
-# @method_decorator(login_required, name="dispatch")
-# class HomePageView(TemplateView):
-#     template_name = "home.html"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["tickets"] = Ticket.objects.all()
-#         context["reviews"] = Review.objects.all().select_related("ticket")
-#         context["rating"] = range(5)
-#         return context
-
+from .forms import ReviewForm
 
 @login_required
 def home_page_view(request):
@@ -107,6 +95,32 @@ class ReviewCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+def review_response(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    # ticket = get_object_or_404(Ticket, pk=ticket_id)
+    if request.method == "POST":
+        review_form = ReviewForm(request.POST, request.FILES, instance=ticket)
+ 
+        if review_form.is_valid():
+            review = Review()
+            review.user = request.user
+            review.rating = review_form.cleaned_data["rating"]
+            review.headline = review_form.cleaned_data["headline"]
+            review.body = review_form.cleaned_data["body"]
+            review.ticket = ticket
+            review.save()
+            return redirect("home")
+    else:
+        review_form = ReviewForm()
+
+    context = {
+        "review_form": review_form,
+        "ticket": ticket
+    }
+
+    return render(request, "tickets/ticket_response.html", context)
 
 
 # Update models
@@ -189,25 +203,6 @@ class Flux(TemplateView):
     template_name = "users/flux.html"
 
 
-# class Subscribers(TemplateView):
-#     template_name = "users/subscribers.html"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["followers"] = UserFollows.objects.all()
-#         context["users"] = CustomUser.objects.all()
-
-#         return context
-
-
-class AddFollower(LoginRequiredMixin, View):
-    def post(self, request, pk, *args, **kwargs):
-        profile = UserFollows.objects.get(pk=pk)
-        profile.user.add(request.user)
-
-        return redirect("profile", pk=profile.pk)
-
-
 @login_required
 def subscribers(request):
     followed_by = UserFollows.objects.filter(user=request.user)
@@ -252,9 +247,3 @@ def unsubscribe(request, followed_by_id, following_id):
             user_id=following_id, followed_user_id=followed_by_id)
         followed_by.delete()
     return redirect("subscribers")
-
-
-class RemoveFollower(LoginRequiredMixin, DeleteView):
-    model = UserFollows
-    context_object_name = "follow"
-    succes_url = reverse_lazy("subscribers")
