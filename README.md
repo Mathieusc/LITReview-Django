@@ -14,7 +14,7 @@ Python (version 3.8.10)
 
 Télécharger l'application
 ```
-git clone https://Mathieusc/openclassrooms_project_9.git
+git clone https://github.com/Mathieusc/openclassrooms_project_9.git
 ```
 
 Créer un environnement virtuel :
