@@ -10,11 +10,9 @@ Application web permettant de :
 ## Installation
 
 Python (version 3.8.10)
-```
-https://www.python.org/downloads/
-```
+* [Télécharger Python](https://www.python.org/downloads/) 
 
-
+Télécharger l'application
 ```
 git clone https://Mathieusc/openclassrooms_project_9.git
 ```
@@ -34,19 +32,22 @@ Windows :
 .\env\Scripts\Activate
 ```
 
-Modules : csv, time, itertools 
-
-
-## Utilisation du programme
-
-Algorithme de force brute avec 20 actions :
+Installer les dépendances
 ```
-python bruteforce.py
+pip install -r requirements.txt
 ```
 
-Algorithme optimisé :
+
+## Utilisation de l'application
+
+text
 ```
-python optimized.py
+
+```
+
+t
+```
+
 ```
 
 ## Créer avec
