@@ -40,15 +40,33 @@ pip install -r requirements.txt
 
 ## Utilisation de l'application
 
-text
+Se connecter en local
 ```
+localhost:8000
+```
+## Authentification
 
-```
+- Créer un compte utilisateur
+- S'inscrire sur un compte existant
 
-t
-```
 
-```
+## Page d'accueil
+
+- Créer une demande de critique (ticket)
+- Créer une critique de livre (review)
+- Répondre à une critique
+- Liste des posts des utilisateurs suivis
+
+## Posts
+
+- Modifier/Supprimer ses posts
+
+## Abonnements
+
+- Suivre un utilisateur
+- Cesser de suivre un utilisateur
+- Liste des utilisateurs qui nous suivent
+
 
 ## Créer avec
 
