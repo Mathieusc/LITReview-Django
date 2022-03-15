@@ -14,7 +14,7 @@
     {% for post in posts %}
     {% if post.content_type == 'REVIEW' %}
     {% include 'reviews/review.html' %}
-    {% elif post.content_type == 'TICKET' %}
+    {% elif post.content_type == 'TICKET'%}
     {% include 'tickets/ticket.html' %}
     {% endif %}
     {% endfor %}
