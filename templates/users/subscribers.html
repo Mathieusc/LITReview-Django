@@ -24,9 +24,7 @@
         {% endif %}
     </div>
 
-
     <!-- Subscribe to / Unsubscribe -->
-
     <h2>Abonnements</h2>
     <div class="input-group mb-3">
         {% for user_followed in followed_by %}
@@ -47,7 +45,6 @@
     </div>
     {% endfor %}
 
-
     <!-- Subscribers -->
     <h2>Abonnés</h2>
     {% for followers in following %}
@@ -55,6 +52,5 @@
         <p>{{ followers.user }}</p>
     </div>
     {% endfor %}
-
 </form>
 {% endblock content %}

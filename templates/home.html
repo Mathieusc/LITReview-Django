@@ -2,24 +2,30 @@
 {% block title %}LITReview{% endblock title %}
 {% block content %}
 
-
 <div class="row">
     <div class="mt-5 col-lg-12">
-
         <a href="{% url 'ticket-create' %}" class="btn btn-info px-4 mb-5 ">Demander une critique</a>
         <a href="{% url 'review-create' %}" class="btn btn-info px-5 mb-5 float-right">Créer une critique</a>
-
     </div>
 
     {% for post in posts %}
     {% if post.content_type == 'REVIEW' %}
-    {% include 'reviews/review.html' %}
+    <div class="col-md-12">
+        <article class="media content-section ">
+            <div class="media-body list-group-item mb-5">
+                {% include 'reviews/review.html' %}
+            </div>
+        </article>
+    </div>
     {% elif post.content_type == 'TICKET'%}
-    {% include 'tickets/ticket.html' %}
+    <div class="col-md-12">
+        <article class="media content-section ">
+            <div class="media-body list-group-item mb-5">
+                {% include 'tickets/ticket.html' %}
+            </div>
+        </article>
+    </div>
     {% endif %}
     {% endfor %}
-
-
-
 
     {% endblock content %}

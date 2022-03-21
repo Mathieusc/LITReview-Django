@@ -2,57 +2,37 @@
 
 <!-- Reviews -->
 {% if post.ticket %}
-Rajouter ça mais en dessous du ticket en question, how tho ?
+Rajouter ça mais en dessous du ticket en question
 {{ post.user}} à répondu à {{ post.ticket.user }}
-<div class="col-md-12">
-    <article class="media content-section ">
-        <div class="media-body list-group-item mb-5">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
-                    critique</a>
-                <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
-            </div>
-
-            <h2 class="article-title">{{ post.headline}} {% if post.rating == 1 %}<span
-                    class="star-rating">&#11088;</span>
-                {% elif post.rating == 2 %}<span class="star-rating">&#11088;&#11088;</span>
-                {% elif post.rating == 3 %}<span class="star-rating">&#11088;&#11088;&#11088;</span>
-                {% elif post.rating == 4 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;</span>
-                {% elif post.rating == 5 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;&#11088;</span>
-                {% endif %}
-            </h2>
-
-            <p class="article-content">{{ post.body }}</p>
-        </div>
-    </article>
+<div class="article-metadata">
+    <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
+        critique</a>
+    <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
 </div>
+<h2 class="article-title">{{ post.headline}} {% if post.rating == 1 %}<span class="star-rating">&#11088;</span>
+    {% elif post.rating == 2 %}<span class="star-rating">&#11088;&#11088;</span>
+    {% elif post.rating == 3 %}<span class="star-rating">&#11088;&#11088;&#11088;</span>
+    {% elif post.rating == 4 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;</span>
+    {% elif post.rating == 5 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;&#11088;</span>
+    {% endif %}
+</h2>
+<p class="article-content">{{ post.body }}</p>
 
 {% else %}
 Sinon laisser ça solo
-<div class="col-md-12">
-    <article class="media content-section ">
-        <div class="media-body list-group-item mb-5">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
-                    critique</a>
-                <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
-            </div>
-
-            <h2 class="article-title">{{ post.headline}} {% if post.rating == 1 %}<span
-                    class="star-rating">&#11088;</span>
-                {% elif post.rating == 2 %}<span class="star-rating">&#11088;&#11088;</span>
-                {% elif post.rating == 3 %}<span class="star-rating">&#11088;&#11088;&#11088;</span>
-                {% elif post.rating == 4 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;</span>
-                {% elif post.rating == 5 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;&#11088;</span>
-                {% endif %}
-            </h2>
-
-            <p class="article-content">{{ post.body }}</p>
-        </div>
-    </article>
+<div class="article-metadata">
+    <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
+        critique</a>
+    <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
 </div>
+<h2 class="article-title">{{ post.headline}} {% if post.rating == 1 %}<span class="star-rating">&#11088;</span>
+    {% elif post.rating == 2 %}<span class="star-rating">&#11088;&#11088;</span>
+    {% elif post.rating == 3 %}<span class="star-rating">&#11088;&#11088;&#11088;</span>
+    {% elif post.rating == 4 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;</span>
+    {% elif post.rating == 5 %}<span class="star-rating">&#11088;&#11088;&#11088;&#11088;&#11088;</span>
+    {% endif %}
+</h2>
+<p class="article-content">{{ post.body }}</p>
 {% endif %}
-
-
 
 {% endblock content %}

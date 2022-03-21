@@ -2,19 +2,14 @@ from itertools import chain
 from django.shortcuts import render
 from django.db.models import Value, Q
 from django.db.models.fields import CharField
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
-from django.views import View
+from django.shortcuts import redirect
 from django.views.generic import (
     TemplateView,
-    ListView,
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
 )
-
-from django.utils.decorators import method_decorator
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -24,16 +19,18 @@ from accounts.models import CustomUser, UserFollows
 from pages.models import Ticket, Review
 from .forms import ReviewForm
 
+
 @login_required
 def home_page_view(request):
     tickets = get_users_viewable_tickets(request.user)
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
 
     reviews = get_users_viewable_reviews(request.user)
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
 
-    posts = sorted(chain(reviews, tickets),
-                   key=lambda post: post.time_created, reverse=True)
+    posts = sorted(
+        chain(reviews, tickets), key=lambda post: post.time_created, reverse=True
+    )
 
     context = {
         "posts": posts,
@@ -56,10 +53,10 @@ def get_users_viewable_reviews(user):
     user_follow = CustomUser.objects.filter(followed_by__in=users)
 
     reviews = Review.objects.filter(
-        Q(user__in=user_follow) |
-        Q(ticket__user=user) |
-        Q(ticket__user__in=user_follow) |
-        Q(user=user)
+        Q(user__in=user_follow)
+        | Q(ticket__user=user)
+        | Q(ticket__user__in=user_follow)
+        | Q(user=user)
     )
 
     return reviews
@@ -102,7 +99,7 @@ def review_response(request, ticket_id):
     # ticket = get_object_or_404(Ticket, pk=ticket_id)
     if request.method == "POST":
         review_form = ReviewForm(request.POST, request.FILES, instance=ticket)
- 
+
         if review_form.is_valid():
             review = Review()
             review.user = request.user
@@ -115,10 +112,7 @@ def review_response(request, ticket_id):
     else:
         review_form = ReviewForm()
 
-    context = {
-        "review_form": review_form,
-        "ticket": ticket
-    }
+    context = {"review_form": review_form, "ticket": ticket}
 
     return render(request, "tickets/ticket_response.html", context)
 
@@ -220,7 +214,8 @@ def subscribers(request):
             existing_user = CustomUser.objects.get(username=follow_user)
             try:
                 user_follows = UserFollows(
-                    user=request.user, followed_user=existing_user)
+                    user=request.user, followed_user=existing_user
+                )
                 user_follows.save()
                 messages.info(request, f"Vous suivez {existing_user.username}")
             except:
@@ -230,10 +225,7 @@ def subscribers(request):
             messages.error(request, "Cet utilisateur est introuvable.")
             return redirect("subscribers")
 
-    context = {
-        "followed_by": followed_by,
-        "following": following
-    }
+    context = {"followed_by": followed_by, "following": following}
 
     return render(request, "users/subscribers.html", context)
 
@@ -241,9 +233,11 @@ def subscribers(request):
 @login_required
 def unsubscribe(request, followed_by_id, following_id):
     followed_by = UserFollows.objects.filter(
-        user_id=following_id, followed_user_id=followed_by_id)
+        user_id=following_id, followed_user_id=followed_by_id
+    )
     if followed_by:
         followed_by = UserFollows.objects.get(
-            user_id=following_id, followed_user_id=followed_by_id)
+            user_id=following_id, followed_user_id=followed_by_id
+        )
         followed_by.delete()
     return redirect("subscribers")

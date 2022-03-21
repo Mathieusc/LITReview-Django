@@ -2,6 +2,7 @@
 {% block content %}
 <p>Vous répondez à {{ ticket.user|title }} </p>
 
+<!-- Debug review_reponse() -->
 {% if review_form.errors %}
 {% for field in review_form %}
 {% for error in field.errors %}

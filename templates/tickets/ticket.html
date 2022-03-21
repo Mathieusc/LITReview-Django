@@ -2,25 +2,16 @@
 
 {% block content %}
 
-
-<div class="col-md-12">
-    <article class="media content-section ">
-        <div class="media-body list-group-item mb-5">
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'ticket-detail' post.id %}">{{ post.user|title }} a demandé une
-                    critique</a>
-                <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
-            </div>
-            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.description }}</p>
-            <img src="static/ikigai.jpg">
-            <a href="{% url 'review-response' post.id%}"
-                class="btn btn-info px-4 position-absolute bottom-0 end-0 ">Créer
-                une
-                critique</a>
-        </div>
-    </article>
+<div class="article-metadata">
+    <a class="mr-2" href="{% url 'ticket-detail' post.id %}">{{ post.user|title }} a demandé une
+        critique</a>
+    <small class="text-muted d-flex justify-content-end">{{ post.time_created }}</small>
 </div>
-
+<h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+<p class="article-content">{{ post.description }}</p>
+<img src="static/ikigai.jpg">
+<a href="{% url 'review-response' post.id%}" class="btn btn-info px-4 position-absolute bottom-0 end-0 ">Créer
+    une
+    critique</a>
 
 {% endblock content %}
