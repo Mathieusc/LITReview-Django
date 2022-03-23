@@ -2,8 +2,6 @@
 
 <!-- Reviews -->
 {% if post.ticket %}
-Rajouter ça mais en dessous du ticket en question
-{{ post.user}} à répondu à {{ post.ticket.user }}
 <div class="article-metadata">
     <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
         critique</a>
@@ -18,8 +16,14 @@ Rajouter ça mais en dessous du ticket en question
 </h2>
 <p class="article-content">{{ post.body }}</p>
 
+<div class="media-body list-group-item mb-5">
+    <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.ticket.user|capfirst }} a demandé une
+        critique</a>
+    <h2><a class="article-title" href="#">{{ post.ticket.title }}</a></h2>
+    <p class="article-content">{{ post.ticket.description }}</p>
+</div>
+
 {% else %}
-Sinon laisser ça solo
 <div class="article-metadata">
     <a class="mr-2" href="{% url 'review-detail' post.id %}">{{ post.user|title }} a publié une
         critique</a>

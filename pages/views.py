@@ -22,6 +22,11 @@ from .forms import ReviewForm
 
 @login_required
 def home_page_view(request):
+    """
+    Home page :
+    Logged-out user -> Log-in / Register an account page
+    Logged-in user  -> Home page
+    """
     tickets = get_users_viewable_tickets(request.user)
     tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
 
@@ -40,6 +45,10 @@ def home_page_view(request):
 
 
 def get_users_viewable_tickets(user):
+    """
+    Get the tickets from the user and the followers
+    return : QuerySet of Ticket
+    """
     users = UserFollows.objects.filter(user=user)
     user_follow = CustomUser.objects.filter(followed_by__in=users)
 
@@ -49,6 +58,10 @@ def get_users_viewable_tickets(user):
 
 
 def get_users_viewable_reviews(user):
+    """
+    Get the reviews from the user and the followers
+    return : QuerySet of Review
+    """
     users = UserFollows.objects.filter(user=user)
     user_follow = CustomUser.objects.filter(followed_by__in=users)
 
@@ -64,17 +77,29 @@ def get_users_viewable_reviews(user):
 
 # Details models
 class TicketDetailView(DetailView):
+    """
+    Detailed page for tickets
+    """
+
     model = Ticket
     template_name = "tickets/ticket_detail.html"
 
 
 class ReviewDetailView(DetailView):
+    """
+    Detailed page for reviews
+    """
+
     model = Review
     template_name = "reviews/review_detail.html"
 
 
 # Create models
 class TicketCreateView(LoginRequiredMixin, CreateView):
+    """
+    Create page for Tickets
+    """
+
     model = Ticket
     fields = ["title", "description", "image"]
     template_name = "tickets/ticket_form.html"
@@ -85,6 +110,10 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
 
 
 class ReviewCreateView(CreateView):
+    """
+    Create page for Reviews
+    """
+
     model = Review
     fields = ["headline", "rating", "body"]
     template_name = "reviews/review_form.html"
@@ -95,11 +124,13 @@ class ReviewCreateView(CreateView):
 
 
 def review_response(request, ticket_id):
+    """
+    Page for posting a review in answer to a ticket
+    """
     ticket = Ticket.objects.get(id=ticket_id)
-    # ticket = get_object_or_404(Ticket, pk=ticket_id)
+
     if request.method == "POST":
         review_form = ReviewForm(request.POST, request.FILES, instance=ticket)
-
         if review_form.is_valid():
             review = Review()
             review.user = request.user
@@ -119,6 +150,10 @@ def review_response(request, ticket_id):
 
 # Update models
 class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Update page for Tickets
+    """
+
     model = Ticket
     fields = ["title", "description", "image"]
     template_name = "tickets/ticket_form.html"
@@ -135,6 +170,10 @@ class TicketUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Update page for Reviews
+    """
+
     model = Review
     fields = ["headline", "rating", "body"]
     template_name = "reviews/review_form.html"
@@ -152,6 +191,10 @@ class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 # Delete models
 class TicketDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Delete page for Tickets
+    """
+
     model = Ticket
     template_name = "tickets/ticket_confirm_delete.html"
     success_url = "/"
@@ -168,6 +211,10 @@ class TicketDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Delete page for Reviews
+    """
+
     model = Review
     template_name = "reviews/review_confirm_delete.html"
     success_url = "/"
@@ -184,6 +231,11 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class Posts(TemplateView):
+    """
+    Display all posts from the user ;
+    the user can modify and/or delete their posts from here
+    """
+
     template_name = "users/posts.html"
 
     def get_context_data(self, **kwargs):
@@ -193,12 +245,12 @@ class Posts(TemplateView):
         return context
 
 
-class Flux(TemplateView):
-    template_name = "users/flux.html"
-
-
 @login_required
 def subscribers(request):
+    """
+    Follow / Unfollow a user by writing its name;
+    Display who the user is following and the followers
+    """
     followed_by = UserFollows.objects.filter(user=request.user)
     following = UserFollows.objects.filter(followed_user=request.user)
 
@@ -232,6 +284,9 @@ def subscribers(request):
 
 @login_required
 def unsubscribe(request, followed_by_id, following_id):
+    """
+    Unfollow a user from the subscribers page
+    """
     followed_by = UserFollows.objects.filter(
         user_id=following_id, followed_user_id=followed_by_id
     )
@@ -240,4 +295,5 @@ def unsubscribe(request, followed_by_id, following_id):
             user_id=following_id, followed_user_id=followed_by_id
         )
         followed_by.delete()
+
     return redirect("subscribers")

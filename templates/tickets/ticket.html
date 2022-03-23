@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <div class="article-metadata">
     <a class="mr-2" href="{% url 'ticket-detail' post.id %}">{{ post.user|title }} a demandé une
         critique</a>
@@ -10,8 +11,12 @@
 <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
 <p class="article-content">{{ post.description }}</p>
 <img src="static/ikigai.jpg">
+{% if post.review_from.count >= 1 %}
+<a href"" class="btn btn-secondary px-4 position-absolute bottom-0 end-0 ">Un utilisateur
+    a répondu !</a>
+{% else %}
 <a href="{% url 'review-response' post.id%}" class="btn btn-info px-4 position-absolute bottom-0 end-0 ">Créer
     une
     critique</a>
-
+{% endif %}
 {% endblock content %}

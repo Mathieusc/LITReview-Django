@@ -2,14 +2,6 @@
 {% block content %}
 <p>Vous répondez à {{ ticket.user|title }} </p>
 
-<!-- Debug review_reponse() -->
-{% if review_form.errors %}
-{% for field in review_form %}
-{% for error in field.errors %}
-<p> {{ error }} </p>
-{% endfor %}
-{% endfor %}
-
 {% endif %}
 <div class="col-md-12">
     <article class="media content-section ">
