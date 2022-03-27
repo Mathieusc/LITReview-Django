@@ -50,6 +50,12 @@ Create the admin account
 python manage.py createsuperuser
 ```
 
+or Use the existing admin account
+```
+username : mathieu
+password : oc-admin
+```
+
 
 
 ## Using the application
@@ -141,6 +147,11 @@ Créer le compte admin
 python manage.py createsuperuser
 ```
 
+Ou utiliser le compte admin existant
+```
+nom d'utilisateur : mathieu
+mpt de passe : oc-admin
+```
 
 
 ## Utilisation de l'application
