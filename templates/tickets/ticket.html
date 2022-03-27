@@ -11,12 +11,14 @@
 <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
 <p class="article-content">{{ post.description }}</p>
 <img src="static/ikigai.jpg">
+<div class="d-md-flex justify-content-md-end mr-3">
 {% if post.review_from.count >= 1 %}
-<a href"" class="btn btn-secondary px-4 position-absolute bottom-0 end-0 ">Un utilisateur
+<a href"" class="btn btn-secondary px-4 ">Un utilisateur
     a répondu !</a>
 {% else %}
-<a href="{% url 'review-response' post.id%}" class="btn btn-info px-4 position-absolute bottom-0 end-0 ">Créer
+<a href="{% url 'review-response' post.id%}" class="btn btn-info px-4">Créer
     une
     critique</a>
+    </div>
 {% endif %}
 {% endblock content %}
