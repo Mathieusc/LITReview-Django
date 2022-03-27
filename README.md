@@ -150,7 +150,7 @@ python manage.py createsuperuser
 Ou utiliser le compte admin existant
 ```
 nom d'utilisateur : mathieu
-mpt de passe : oc-admin
+mot de passe : oc-admin
 ```
 
 
