@@ -2,7 +2,7 @@ asgiref==3.4.1
 black==21.12b0
 click==8.0.3
 crispy-bootstrap5==0.6
-Django==3.2.11
+Django==3.2.20
 django-crispy-forms==1.13.0
 mypy-extensions==0.4.3
 pathspec==0.9.0
