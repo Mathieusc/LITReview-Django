@@ -18,7 +18,7 @@ Python (version 3.8.10)
 
 Download the application
 ```
-git clone https://github.com/Mathieusc/openclassrooms_project_9.git
+git clone https://github.com/Mathieusc/LITReview-Django.git
 ```
 
 Create a virutal environment
@@ -115,7 +115,7 @@ Python (version 3.8.10)
 
 Télécharger l'application
 ```
-git clone https://github.com/Mathieusc/openclassrooms_project_9.git
+git clone https://github.com/Mathieusc/LITReview-Django.git
 ```
 
 Créer un environnement virtuel :
